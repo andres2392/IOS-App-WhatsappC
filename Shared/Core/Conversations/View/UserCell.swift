@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConversationCell: View {
+struct UserCell: View {
     var body: some View {
         VStack {
             HStack{
@@ -23,7 +23,7 @@ struct ConversationCell: View {
                     Text("Andres Gonzalez")
                         .font(.system(size: 14, weight: .semibold))
                     
-                    Text("this is some test message for now..")
+                    Text("@microgonz")
                         .font(.system(size: 14))
                 }//: VSTACK
                 .foregroundColor(.black)
@@ -31,15 +31,9 @@ struct ConversationCell: View {
                 Spacer()
             }//: HSTACK
             .padding(.horizontal)
-            
-            Divider()
+        
         }//: VSTACK
         .padding(.top)
     }
 }
 
-struct ConversationCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ConversationCell()
-    }
-}

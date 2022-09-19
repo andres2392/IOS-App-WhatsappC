@@ -9,17 +9,27 @@ import SwiftUI
 
 struct ConversationsView: View {
     // MARK: - PROPERTIES
+    @State private var showNewMessageView = false
+    @State private var showChatView = false
     
     // MARK: -  BODY
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             
+            NavigationLink(
+                destination: ChatView(),
+                isActive: $showChatView,
+                label: {})
+            
             // CHATS
             ScrollView{
                 VStack(alignment: .leading){
-                    
                     ForEach(0 ... 10 , id: \.self){ _ in
-                        ConversationCell()
+                        NavigationLink(
+                            destination: ChatView(),
+                            label: {
+                            ConversationCell()
+                        })//: NAV LINK
                     }//: LOOP
                 }//: VSTACK
             }//: SCROLL
@@ -27,7 +37,7 @@ struct ConversationsView: View {
             //FLOATING BUTTON
             
             Button(action: {
-                print("Show users list here..")
+                showNewMessageView.toggle()
             }, label: {
                 Image(systemName: "square.and.pencil")
                     .resizable()
@@ -39,6 +49,10 @@ struct ConversationsView: View {
             .foregroundColor(.white)
             .clipShape(Circle())
             .padding()
+            .sheet(isPresented: $showNewMessageView,
+                   content: {
+                        NewMessageView(showChatView: $showChatView )
+            })
         }//:ZSTACK
     }
 }
