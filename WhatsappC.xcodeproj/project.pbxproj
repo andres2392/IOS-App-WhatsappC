@@ -13,6 +13,9 @@
 		14DFF79528D7DF94006204A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DFF78328D7DF92006204A0 /* ContentView.swift */; };
 		14DFF79628D7DF94006204A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14DFF78428D7DF94006204A0 /* Assets.xcassets */; };
 		14DFF79728D7DF94006204A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14DFF78428D7DF94006204A0 /* Assets.xcassets */; };
+		14DFF7A828D7E075006204A0 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DFF7A728D7E075006204A0 /* RegistrationView.swift */; };
+		14DFF7AA28D7E080006204A0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DFF7A928D7E080006204A0 /* LoginView.swift */; };
+		14DFF7AC28D7E886006204A0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DFF7AB28D7E886006204A0 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		14DFF78928D7DF94006204A0 /* WhatsappC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsappC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DFF78F28D7DF94006204A0 /* WhatsappC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsappC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DFF79128D7DF94006204A0 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		14DFF7A728D7E075006204A0 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		14DFF7A928D7E080006204A0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		14DFF7AB28D7E886006204A0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,10 @@
 		14DFF78128D7DF92006204A0 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				14DFF7A428D7E00F006204A0 /* API */,
+				14DFF7A228D7DFFF006204A0 /* Models */,
+				14DFF7A128D7DFF8006204A0 /* Core */,
+				14DFF7A028D7DFEF006204A0 /* Utils */,
 				14DFF78228D7DF92006204A0 /* WhatsappCApp.swift */,
 				14DFF78328D7DF92006204A0 /* ContentView.swift */,
 				14DFF78428D7DF94006204A0 /* Assets.xcassets */,
@@ -76,6 +86,61 @@
 				14DFF79128D7DF94006204A0 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		14DFF7A028D7DFEF006204A0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				14DFF7AB28D7E886006204A0 /* CustomTextField.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		14DFF7A128D7DFF8006204A0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				14DFF7A528D7E043006204A0 /* Authentication */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		14DFF7A228D7DFFF006204A0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		14DFF7A328D7E003006204A0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		14DFF7A428D7E00F006204A0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		14DFF7A528D7E043006204A0 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				14DFF7A628D7E052006204A0 /* View */,
+				14DFF7A328D7E003006204A0 /* ViewModel */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		14DFF7A628D7E052006204A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14DFF7A728D7E075006204A0 /* RegistrationView.swift */,
+				14DFF7A928D7E080006204A0 /* LoginView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,8 +241,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14DFF7A828D7E075006204A0 /* RegistrationView.swift in Sources */,
 				14DFF79428D7DF94006204A0 /* ContentView.swift in Sources */,
+				14DFF7AA28D7E080006204A0 /* LoginView.swift in Sources */,
 				14DFF79228D7DF94006204A0 /* WhatsappCApp.swift in Sources */,
+				14DFF7AC28D7E886006204A0 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
