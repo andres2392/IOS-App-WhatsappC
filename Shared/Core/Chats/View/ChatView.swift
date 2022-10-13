@@ -10,15 +10,23 @@ import SwiftUI
 struct ChatView: View {
     // MARK: -  PROPERTIES
     @State private var messageText = ""
-    @ObservedObject var viewModel = ChatViewModel()
+    @ObservedObject var viewModel: ChatViewModel
+    private let user: User
+    
+    init(user: User){
+        self.user = user
+        self.viewModel = ChatViewModel(user: user)
+    }
+    
+    // MARK: - BODY
     var body: some View {
         
         VStack {
             //MESSAGE
             ScrollView{
                 VStack(alignment: .leading, spacing: 12 ){
-                    ForEach(viewModel.messages){ messages in
-                        MessageView(isFromCurrentUser: messages.isFromCurrentUser, messageText: messages.messageText)
+                    ForEach(viewModel.messages){ message in
+                        MessageView(viewModel: MessageViewModel(message))
                     }
                     
                 }//: VSTACK
@@ -28,7 +36,7 @@ struct ChatView: View {
             CustomInputView(text: $messageText, action: sendMessage)
             
         }//: VSTACK
-        .navigationTitle("Andres")
+        .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.inline)
         .padding(.vertical)
     }
@@ -39,8 +47,3 @@ struct ChatView: View {
     }
 }
 
-struct ChatsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
-    }
-}

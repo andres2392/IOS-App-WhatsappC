@@ -9,8 +9,10 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedIndex = 0
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
+        if let user = viewModel.currentUser{
             NavigationView {
                 TabView(selection: $selectedIndex) {
                     ConversationsView()
@@ -28,7 +30,7 @@ struct MainTabView: View {
                         .tag(1)
 
                     
-                    SettingsView()
+                    SettingsView(user: user)
                         .onTapGesture {
                             selectedIndex = 2
                         }
@@ -38,7 +40,11 @@ struct MainTabView: View {
                 }
                 .navigationTitle(tabTitle)
                 
-            }
+            }//: NAVIGATION
+            
+        } else {
+            // MARK: - ERROR LOADING OR EMPTY STATE VIEW
+        }
     }
     
     var tabTitle: String {

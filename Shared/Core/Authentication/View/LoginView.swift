@@ -11,6 +11,7 @@ struct LoginView: View {
     // MARK: - PROPERTIES
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var viewModel: AuthViewModel
     
     // MARK: - BODY
     var body: some View {
@@ -62,7 +63,7 @@ struct LoginView: View {
                 }//: HSTACK FORGOTB
                 
                 Button(action:{
-                    print("Handle sign up..")
+                    viewModel.login(withEmail: email, password: password)
                 }, label:{
                     Text("Sign in")
                         .font(.headline)

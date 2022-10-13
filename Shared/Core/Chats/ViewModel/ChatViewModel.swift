@@ -5,30 +5,67 @@
 //  Created by PDWS on 9/19/22.
 //
 
-import Foundation
+import Firebase
 
 class ChatViewModel: ObservableObject{
-    
+    // MARK: - PROPERTIES
     @Published var messages = [Message]()
+    let user: User
     
-    init(){
-        messages = mockMessages
+    init(user: User){
+        self.user = user
+        fetchMessages()
     }
     
-    var mockMessages:[Message]{
-        [
-            .init(isFromCurrentUser: true, messageText: "Hey, what's up mas"),
-            .init(isFromCurrentUser: false, messageText: "not much how are you"),
-            .init(isFromCurrentUser: true, messageText: "I'm doing fine, having fun building apps?"),
-            .init(isFromCurrentUser: true, messageText: "Are you learning alot?"),
-            .init(isFromCurrentUser: false, messageText: "Yeah, i'm doing great"),
-            .init(isFromCurrentUser: true, messageText: "Thats awesome"),
-            .init(isFromCurrentUser: true, messageText: "Talk to you later")
-        ]
+    // MARK: - FETCH MESSAGES FROM FIREBASE
+    func fetchMessages(){
+        guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
+        guard let chatPartnerId = user.id else  {return}
+        
+        let query = COLLECTION_MESSAGES
+            .document(currentUid)
+            .collection(chatPartnerId)
+            .order(by: "timestamp", descending: false)
+        
+        query.addSnapshotListener{ snapshot, _ in
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return}
+            
+            var messages = changes.compactMap{ try? $0.document.data(as: Message.self) }
+            
+            for (index, message) in messages.enumerated() where message.fromId != currentUid {
+                messages[index].user = self.user
+            }
+            self.messages.append(contentsOf: messages)
+        }
     }
     
+    // MARK: - SEND MESSAGE TO FIREBASE
     func sendMessage(_ messageText: String){
-        let message = Message(isFromCurrentUser: true, messageText: messageText)
-        messages.append(message)
+        guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
+        guard let chatPartnerId = user.id else  {return}
+        
+        let currentUserRef = COLLECTION_MESSAGES.document(currentUid).collection(chatPartnerId).document()
+        let chatPartnetRef = COLLECTION_MESSAGES.document(chatPartnerId).collection(currentUid)
+        
+        let recentCurrentRef = COLLECTION_MESSAGES.document(currentUid).collection("recent-messages")
+            .document(chatPartnerId)
+        
+        let recentPartnerRef = COLLECTION_MESSAGES.document(chatPartnerId).collection("recent-messages")
+            .document(currentUid)
+        
+        
+        let messageId = currentUserRef.documentID
+        
+        let data: [ String: Any ] = [ "text": messageText,
+                                    "fromId": currentUid,
+                                    "toId": chatPartnerId,
+                                    "read": false,
+                                    "timestamp": Timestamp(date: Date())]
+        
+        currentUserRef.setData(data)
+        chatPartnetRef.document(messageId).setData(data)
+        
+        recentCurrentRef.setData(data)
+        recentPartnerRef.setData(data)
     }
 }

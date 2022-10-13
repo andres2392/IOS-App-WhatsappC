@@ -8,12 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: - PROPERTIES
+    @EnvironmentObject var viewModel : AuthViewModel
+    
+    // MARK: - BODY
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Group{
+            if viewModel.userSession != nil {
+                MainTabView()
+        } else {
+            LoginView()
+        }
     }
 }
+}
 
+
+
+// MARK: - PREVIEW
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

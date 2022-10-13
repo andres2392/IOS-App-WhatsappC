@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct WhatsappCApp: App {
+    
+    init(){
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            ContentView().environmentObject(AuthViewModel.shared)
         }
     }
 }

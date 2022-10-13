@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserCell: View {
+    // MARK: - PROPERTIES
+    let user: User
+    
+    // MARK: - BODY
     var body: some View {
         VStack {
             HStack{
                 
-                Image("prof")
+                KFImage(URL(string: user.profileImageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 48, height: 48)
@@ -20,10 +25,10 @@ struct UserCell: View {
                 
                 // MESSAGE INFO
                 VStack(alignment: .leading,spacing: 4){
-                    Text("Andres Gonzalez")
+                    Text(user.fullname)
                         .font(.system(size: 14, weight: .semibold))
                     
-                    Text("@microgonz")
+                    Text(user.username)
                         .font(.system(size: 14))
                 }//: VSTACK
                 .foregroundColor(.black)
